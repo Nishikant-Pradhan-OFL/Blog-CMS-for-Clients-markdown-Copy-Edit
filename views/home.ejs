@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog Home</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Blog CMS</h1>
+  <% if (session && session.user) { %>
+    <a href="/dashboard">Dashboard</a> | <a href="/logout">Logout</a>
+  <% } else { %>
+    <a href="/login">Login</a>
+  <% } %>
+  <hr>
+  <% posts.forEach(post => { %>
+    <h2><a href="/post/<%= post._id %>"><%= post.title %></a></h2>
+    <p><%= post.content.substring(0, 100) %>...</p>
+    <% if (session && session.user) { %>
+      <a href="/edit/<%= post._id %>">Edit</a> |
+      <a href="/delete/<%= post._id %>" onclick="return confirm('Are you sure?')">Delete</a>
+    <% } %>
+    <hr>
+  <% }) %>
+</body>
+</html>
